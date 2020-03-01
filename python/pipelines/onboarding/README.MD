@@ -2,7 +2,7 @@ Apache Beam pipeline for importing patent publications from Google Patents Publi
 
 ## Overview:
 
-This pipeline connects to Bigquery in order to retrieve grant-patent publications by specified application numbers. It maps publications to Patential patents data model and upserts them to destination patents Postgresql database.
+This pipeline connects to Bigquery in order to retrieve grant-patent publications by specified application numbers. It maps publications to Patential data model and upserts them to destination Patents Postgresql database.
 
 ## Local development:
 
@@ -22,7 +22,7 @@ The pipeline requires multiple command line arguments:
 
 * --db-user: Username for Postgresql instance.
 * --db-password: Password for Postgresql instance.
-* --db-name: Database name for Postgresql instance.
+* --db-name: Patents database name.
 * --db-host: Hostname for Postgresql instance.
 * --db-port: Port number for Postgresql instance.
 * --application-numbers-filepath: Local or ``gs://`` path to file with application numbers.

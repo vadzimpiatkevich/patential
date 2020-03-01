@@ -41,7 +41,7 @@ def run():
     parser.add_argument(
         '--db-name',
         dest='db_name',
-        help='Database name for Postgresql instance.',
+        help='Patents database name.',
         required=True
     )
     parser.add_argument(
