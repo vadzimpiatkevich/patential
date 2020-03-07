@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["store.go"],
+    importpath = "github.com/patential/go/svc/patent/internal/store",
+    visibility = ["//go/svc/patent:__subpackages__"],
+    deps = ["//go/pkg/log:go_default_library"],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["store_test.go"],
+    data = glob(["testdata/**"]),
+    embed = [":go_default_library"],
+    deps = [
+        "//go/pkg/testutil:go_default_library",
+        "@com_github_google_uuid//:go_default_library",
+        "@com_github_sirupsen_logrus//hooks/test:go_default_library",
+    ],
+)
