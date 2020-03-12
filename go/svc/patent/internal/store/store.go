@@ -25,7 +25,7 @@ type Pagination struct {
 
 // DB defines methods needed to interact with Postgres DB.
 type DB interface {
-	Query(query string, args ...interface{}) (*sql.Rows, error)
+	QueryContext(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error)
 }
 
 // Client represents store client.
@@ -59,7 +59,8 @@ func (c Client) ListPatents(ctx context.Context, pagination Pagination) ([]Paten
 		limit = defaultLimit
 	}
 
-	q := fmt.Sprintf(
+	rows, err := c.db.QueryContext(
+		ctx,
 		`
 			SELECT
 				id,
@@ -68,14 +69,12 @@ func (c Client) ListPatents(ctx context.Context, pagination Pagination) ([]Paten
 				grant_date
 			FROM patents
 			ORDER BY grant_date DESC
-			LIMIT %d
-			OFFSET %d
+			LIMIT ?
+			OFFSET ?
 		`,
 		limit,
 		pagination.Offset,
 	)
-
-	rows, err := c.db.Query(q)
 	if err != nil {
 		return nil, fmt.Errorf("error executing query: %v", err)
 	}
