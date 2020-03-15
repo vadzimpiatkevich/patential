@@ -65,7 +65,7 @@ func (c Client) ListPatents(ctx context.Context, pagination Pagination) ([]Paten
 			SELECT
 				id,
 				application_number,
-				application_number,
+				application_kind,
 				grant_date
 			FROM patents
 			ORDER BY grant_date DESC
