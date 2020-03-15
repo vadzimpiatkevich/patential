@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package patent;
+
+import "google/protobuf/timestamp.proto";
+
+service Service {
+  rpc ListPatents(ListPatentsRequest) returns (ListPatentsResponse);
+}
+
+message Patent {
+  string id = 1;
+  string application_number = 2;
+  string application_kind = 3;
+  google.protobuf.Timestamp grant_date = 4;
+}
+
+message ListPatentsRequest {
+  Pagination pagination = 1;
+}
+
+message ListPatentsResponse {
+  repeated Patent patents = 1;
+}
+
+message Pagination {
+  int32 offset = 1;
+  int32 limit = 2;
+}

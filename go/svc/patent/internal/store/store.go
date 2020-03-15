@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"database/sql"
+	"github.com/google/uuid"
 	lg "github.com/patential/go/pkg/log"
 )
 
@@ -26,6 +27,7 @@ type Pagination struct {
 // DB defines methods needed to interact with Postgres DB.
 type DB interface {
 	QueryContext(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error)
+	ExecContext(ctx context.Context, query string, args ...interface{}) (sql.Result, error)
 }
 
 // Client represents store client.
@@ -107,4 +109,39 @@ func (c Client) ListPatents(ctx context.Context, pagination Pagination) ([]Paten
 	}
 
 	return patents, nil
+}
+
+// InsertPatent inserts single patent.
+// It returns generated ID in case of success.
+func (c Client) InsertPatent(ctx context.Context, patent Patent) (string, error) {
+	id := uuid.New().String()
+
+	row := patentRow{
+		id:                id,
+		applicationNumber: patent.ApplicationNumber,
+		applicationKind:   patent.ApplicationKind,
+		grantDate:         patent.GrantDate,
+	}
+
+	_, err := c.db.ExecContext(
+		ctx,
+		`
+			INSERT INTO patents (
+				id,
+				application_number,
+				application_kind,
+				grant_date
+			)
+			VALUES (?, ?, ?, ?)
+		`,
+		row.id,
+		row.applicationNumber,
+		row.applicationKind,
+		row.grantDate,
+	)
+	if err != nil {
+		return "", fmt.Errorf("failed to exec DB statement: %v", err)
+	}
+
+	return id, nil
 }
