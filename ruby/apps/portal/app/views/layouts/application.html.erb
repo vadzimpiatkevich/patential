@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Portal</title>
+    <title>Patential</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,39 @@
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container">
+        <%= link_to 'Patential', root_path, class: 'brand-logo' %>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <%= yield %>
+      </div>
+    </main>
+
+    <footer class="page-footer orange">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">We offer</h5>
+            <p class="grey-text text-lighten-4">Patential integrates with your patent portfolio to modernize your operations and position you for better portfolio engineering. It’s a singular solution that puts you in control.</p>
+          </div>
+          <div class="col l3 offset-l3 s12">
+            <h5 class="white-text">Connect</h5>
+            <ul>
+              <li><a class="white-text" href="mailto:vadzim.piatkevich@gmail.com">By Email</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-copyright">
+        <div class="container">
+          Made with love
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
