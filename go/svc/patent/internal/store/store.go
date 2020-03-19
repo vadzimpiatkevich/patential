@@ -71,8 +71,8 @@ func (c Client) ListPatents(ctx context.Context, pagination Pagination) ([]Paten
 				grant_date
 			FROM patents
 			ORDER BY grant_date DESC
-			LIMIT ?
-			OFFSET ?
+			LIMIT $1
+			OFFSET $2
 		`,
 		limit,
 		pagination.Offset,
@@ -132,7 +132,7 @@ func (c Client) InsertPatent(ctx context.Context, patent Patent) (string, error)
 				application_kind,
 				grant_date
 			)
-			VALUES (?, ?, ?, ?)
+			VALUES ($1, $2, $3, $4)
 		`,
 		row.id,
 		row.applicationNumber,
