@@ -17,6 +17,12 @@ To build the Patent service run the following command:
 bazel build --sandbox_debug -- //go/svc/patent/...
 ```
 
+To produce Ruby library from proto file run the following command:
+
+```shell
+protoc -I ./proto/service service.proto --ruby_out=./proto/service
+```
+
 ### Run
 
 The service can be run using Bazel with the following command:
