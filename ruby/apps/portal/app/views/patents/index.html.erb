@@ -1,3 +1,32 @@
-<div class="row center">
-  <h5 class="header light">Patent Portfolio</h5>
+<ul class="collection">
+  <% @patents.each do |patent| %>
+    <li class="row collection-item valign-wrapper">
+      <div class="col s2">
+        <i class="material-icons small yellow">lightbulb_outline</i>
+      </div>
+      <div class="col s10">
+        <a href="#!" class="secondary-content">
+          <i class="material-icons">more_horiz</i>
+        </a>
+        <b>Application Number: <%= patent.application_number %></b>
+        <br/>
+        Application Kind: <%= patent.application_kind %>
+        <p class="right-align">
+          Grant Date: <%= patent.grant_date.seconds %>
+        </p>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<div class="row">
+  <ul class="pagination center-align">
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    <li class="active"><a href="#!">1</a></li>
+    <li class="waves-effect"><a href="#!">2</a></li>
+    <li class="waves-effect"><a href="#!">3</a></li>
+    <li class="waves-effect"><a href="#!">4</a></li>
+    <li class="waves-effect"><a href="#!">5</a></li>
+    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+  </ul>
 </div>
