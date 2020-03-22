@@ -1,24 +1,8 @@
-# README
+This Rails app depends on the following protobuf libraries:
+- go/svc/patent/proto/service/service.proto.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To produce Ruby library from the proto file, run the following command from the project root:
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```shell
+grpc_tools_ruby_protoc --ruby_out=lib/proto/svc/patent/ --grpc_out=lib/proto/svc/patent/ --proto_path=../../../go/svc/patent/proto/service service.proto
+```
