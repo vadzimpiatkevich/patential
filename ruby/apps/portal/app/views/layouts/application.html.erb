@@ -12,11 +12,12 @@
   </head>
 
   <body>
-    <nav class="light-blue lighten-1" role="navigation">
-      <div class="nav-wrapper container">
-        <%= link_to 'Patential', root_path, class: 'brand-logo' %>
-      </div>
-    </nav>
+    <header>
+      <ul class="sidenav sidenav-fixed">
+        <%= sidenav_link(root_path, 'Dahsboard') %>
+        <%= sidenav_link(patents_path, 'Patents') %>
+      </ul>
+    </header>
 
     <main>
       <div class="container">
@@ -24,25 +25,13 @@
       </div>
     </main>
 
-    <footer class="page-footer orange">
+    <footer class="page-footer">
       <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text">We offer</h5>
-            <p class="grey-text text-lighten-4">Patential integrates with your patent portfolio to modernize your operations and position you for better portfolio engineering. It’s a singular solution that puts you in control.</p>
-          </div>
-          <div class="col l3 offset-l3 s12">
-            <h5 class="white-text">Connect</h5>
-            <ul>
-              <li><a class="white-text" href="mailto:vadzim.piatkevich@gmail.com">By Email</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-copyright">
-        <div class="container">
-          Made with love
+        <div class="right-align">
+          <h6 class="white-text">Do you have any feedback? We would love to hear from you.</h5>
+          <ul>
+            <li><a class="white-text" href="mailto:vadzim.piatkevich@gmail.com">Contact us by Email</a></li>
+          </ul>
         </div>
       </div>
     </footer>

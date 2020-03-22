@@ -1,5 +1,4 @@
 @import 'materialize-css/dist/css/materialize';
-
 // Sticky Footer.
 // A sticky footer always stays on the bottom of the page regardless of how
 // little content is on the page.
@@ -13,4 +12,9 @@ body {
 
 main {
   flex: 1 0 auto;
+}
+
+// Ensure page context displayed right after sidenav.
+header, main, footer {
+  padding-left: 300px;
 }
