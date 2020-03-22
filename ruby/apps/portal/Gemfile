@@ -28,6 +28,11 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+# It's an implementation of the command pattern in Ruby.
+gem 'active_interaction', '~> 3.8'
+# A Ruby implementation of gRPC.
+gem 'grpc', require: false
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -40,6 +45,15 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # Pry is a runtime developer console and IRB alternative with powerful
+  # introspection capabilities.
+  gem 'pry', '~> 0.12.2'
+  # This package distributes protoc and the Ruby gRPC protoc plugin for Windows,
+  # Linux, and Mac.
+  gem 'grpc-tools', require: false
+  # A Ruby gem to load environment variables from `.env`.
+  gem 'dotenv-rails'
 end
 
 group :test do
