@@ -1,0 +1,35 @@
+<div class="center-align">
+  <div class="row">
+    <h5>Create your account</h5>
+  </div>
+
+  <div class="card-panel white">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <span class="helper-text red-text">
+        <%= f.object.errors[:base].to_sentence %>
+      </span>
+
+      <div class="input-field">
+        <i class="material-icons prefix">email</i>
+        <%= f.email_field :email, autofocus: true, autocomplete: 'email' %>
+        <%= f.label :email %><br />
+      </div>
+
+      <div class="input-field">
+        <i class="material-icons prefix">vpn_key</i>
+        <%= f.password_field :password, autocomplete: 'new-password' %>
+        <%= f.label :password %>
+      </div>
+
+      <div class="input-field">
+        <i class="material-icons prefix">vpn_key</i>
+        <%= f.password_field :password_confirmation, autocomplete: 'new-password' %>
+        <%= f.label :password_confirmation %><br />
+      </div>
+
+      <div class="row left-align">
+        <%= f.submit 'Signup', class: 'btn-small' %>
+      </div>
+    <% end %>
+  </div>
+</div>
