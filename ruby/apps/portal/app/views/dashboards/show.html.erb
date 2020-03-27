@@ -1,29 +1,19 @@
-<div class="section">
-  <div class="row">
-    <h5>Get Started</h5>
-  </div>
+<div class="row center-align">
+  <h5>Get Started</h5>
+</div>
 
-  <div class="row">
-    <div class="divider"></div>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Let us analyse your Portfolio</span>
+    <p>
+      Patential integrates with your patent portfolio to position you for
+      better portfolio engineering.
+    </p>
   </div>
-
-  <div class="row">
-    <div class="col l6">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Let us analyse your Portfolio</span>
-          <p>
-            Patential integrates with your patent portfolio to position you for
-            better portfolio engineering.
-          </p>
-        </div>
-        <div class="card-action center-align">
-          <%= link_to patents_path, class: 'btn-small' do %>
-            <i class="material-icons right">cloud_upload</i>
-            Upload my portfolio
-          <% end %>
-        </div>
-      </div>
-    </div>
+  <div class="card-action center-align">
+    <%= link_to patents_path, class: 'btn-small' do %>
+      <i class="material-icons right">cloud_upload</i>
+      Upload my portfolio
+    <% end %>
   </div>
 </div>
