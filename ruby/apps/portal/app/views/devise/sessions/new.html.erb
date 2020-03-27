@@ -1,0 +1,39 @@
+<div class="center-align">
+  <div class="row">
+    <h5>Hi guest,</h5>
+    <p>Please, procceed with sign in to access your account.</p>
+  </div>
+
+  <div class="card-panel white">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="input-field">
+        <i class="material-icons prefix">email</i>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= f.label :email %><br />
+      </div>
+
+      <div class="input-field">
+        <i class="material-icons prefix">vpn_key</i>
+        <%= f.password_field :password %>
+        <%= f.label :password %><br />
+      </div>
+
+      <div class="row valign-wrapper">
+        <div class="col s2">
+          <%= f.submit 'Signin', class: 'btn-small' %>
+        </div>
+        <div class="col s10 left-align">
+          <label>
+            <%= f.check_box :remember_me %>
+            <span>Remember me</span>
+          </label>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<p class="right-align">
+  Don't you have an account?
+  <%= link_to 'Sign up for Patential', new_user_registration_path, class: 'teal-text' %>
+</p>

@@ -10,29 +10,37 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
-
   <body>
     <header>
       <ul class="sidenav sidenav-fixed">
-        <%= sidenav_link(root_path, 'Dahsboard') %>
-        <%= sidenav_link(patents_path, 'Patents') %>
+        <% if current_user %>
+          <%= sidenav_link(edit_user_registration_path, 'Account') %>
+          <%= sidenav_link(root_path, 'Dahsboard') %>
+          <%= sidenav_link(patents_path, 'Patents') %>
+          <div class="divider"></div>
+          <%= sidenav_link(destroy_user_session_path, 'Logout', method: :delete) %>
+        <% else %>
+          <%= sidenav_link(new_user_session_path, 'Sign in') %>
+        <% end %>
       </ul>
     </header>
 
     <main>
       <div class="container">
+        <% flash.each do |message_type, message| %>
+          <%= javascript_tag("M.toast({ html: '#{message}' })") %>
+        <% end %>
+
         <%= yield %>
       </div>
     </main>
 
     <footer class="page-footer">
-      <div class="container">
-        <div class="right-align">
-          <h6 class="white-text">Do you have any feedback? We would love to hear from you.</h5>
-          <ul>
-            <li><a class="white-text" href="mailto:vadzim.piatkevich@gmail.com">Contact us by Email</a></li>
-          </ul>
-        </div>
+      <div class="container right-align">
+        <h6 class="white-text">Do you have any feedback? We would love to hear from you.</h5>
+        <ul>
+          <li><a class="white-text" href="mailto:vadzim.piatkevich@gmail.com">Contact us by Email</a></li>
+        </ul>
       </div>
     </footer>
   </body>
