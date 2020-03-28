@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["store.go"],
+    importpath = "github.com/patential/golang/svc/patent/internal/store",
+    visibility = ["//golang/svc/patent:__subpackages__"],
+    deps = [
+        "//golang/pkg/log:go_default_library",
+        "@com_github_google_uuid//:go_default_library",
+    ],
+)

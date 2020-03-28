@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["service.go"],
+    importpath = "github.com/patential/golang/svc/patent/internal/service",
+    visibility = ["//golang/svc/patent:__subpackages__"],
+    deps = [
+        "//golang/pkg/log:go_default_library",
+        "//golang/svc/patent/internal/store:go_default_library",
+        "//golang/svc/patent/proto/service:go_default_library",
+        "@com_github_golang_protobuf//ptypes:go_default_library_gen",
+        "@org_golang_google_grpc//codes:go_default_library",
+        "@org_golang_google_grpc//status:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["service_test.go"],
+    data = glob(["testdata/**"]),
+    embed = [":go_default_library"],
+    deps = [
+        "//golang/pkg/testutil:go_default_library",
+        "//golang/svc/patent/internal/store:go_default_library",
+        "//golang/svc/patent/proto/service:go_default_library",
+        "@com_github_golang_protobuf//ptypes:go_default_library_gen",
+        "@com_github_google_go_cmp//cmp:go_default_library",
+        "@com_github_sirupsen_logrus//hooks/test:go_default_library",
+    ],
+)
