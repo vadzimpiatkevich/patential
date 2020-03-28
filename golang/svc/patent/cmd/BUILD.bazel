@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "github.com/patential/golang/svc/patent/cmd",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//golang/pkg/log:go_default_library",
+        "//golang/svc/patent/internal/service:go_default_library",
+        "//golang/svc/patent/internal/store:go_default_library",
+        "//golang/svc/patent/proto/service:go_default_library",
+        "@com_github_lib_pq//:go_default_library",
+        "@org_golang_google_grpc//:go_default_library",
+        "@org_golang_google_grpc//reflection:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "cmd",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)
