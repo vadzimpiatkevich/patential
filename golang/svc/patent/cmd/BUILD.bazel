@@ -4,7 +4,7 @@ go_library(
     name = "go_default_library",
     srcs = ["main.go"],
     importpath = "github.com/patential/golang/svc/patent/cmd",
-    visibility = ["//visibility:private"],
+    visibility = ["//visibility:public"],
     deps = [
         "//golang/pkg/log:go_default_library",
         "//golang/svc/patent/internal/service:go_default_library",

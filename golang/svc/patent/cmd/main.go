@@ -28,7 +28,7 @@ var (
 	dbPassword = flag.String("db-password", "", "Password for Postgresql instance.")
 	dbDatabase = flag.String("db-name", "", "Patents database name on Postgresql instance.")
 
-	port = flag.Int64("port", 0, "Server port")
+	grpcPort = flag.Int64("grpc-port", 0, "GRPC server port")
 )
 
 var logger = lg.NewLogger()
@@ -75,12 +75,12 @@ func run() error {
 	reflection.Register(grpcServer)
 	pb.RegisterServiceServer(grpcServer, ps)
 
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *grpcPort))
 	if err != nil {
 		return fmt.Errorf("failed to listen: %v", err)
 	}
 
-	logger.Infof("Service listening on port: %d", *port)
+	logger.Infof("Service listening on port: %d", *grpcPort)
 	err = grpcServer.Serve(lis)
 	if err != nil {
 		return fmt.Errorf("failed to serve: %v", err)

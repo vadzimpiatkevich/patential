@@ -1,0 +1,13 @@
+apiVersion: skaffold/v1beta15
+kind: Config
+build:
+  artifacts:
+  - image: gcr.io/patential/patent
+    context: .
+    bazel:
+      target: //golang/svc/patent/k8s:image.tar
+      args:
+        - "--platforms=@io_bazel_rules_go//go/toolchain:linux_amd64"
+deploy:
+  kustomize:
+    path: k8s/overlays/pro
