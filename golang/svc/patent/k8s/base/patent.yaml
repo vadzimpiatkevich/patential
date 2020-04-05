@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: patent
+  labels:
+    app: patent
+    grpcWeb: grpcWeb
+spec:
+  ports:
+  - name: grpc-port
+    port: 9000
+  selector:
+    app: patent
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patent
+  labels:
+    app: patent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: patent
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: patent
+        grpcWeb: grpcWeb
+    spec:
+      containers:
+      - name: patent
+        image: gcr.io/patential/patent
+        args:
+          - "-db-host=127.0.0.1"
+          - "-db-port=5437"
+          - "-db-user=$(DB_USER)"
+          - "-db-password=$(DB_PASSWORD)"
+          - "-db-name=patent"
+          - "-grpc-port=9000"
+        ports:
+        - containerPort: 9000
+        env:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: psql-instance-credentials
+              key: user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: psql-instance-credentials
+              key: password
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.14
+        command: [
+          "/cloud_sql_proxy",
+          "-instances=psql-europe-west3=tcp:5432",
+          # If running on a VPC, the Cloud SQL proxy can connect via Private IP. See:
+          # https://cloud.google.com/sql/docs/mysql/private-ip for more info.
+          # "-ip_address_types=PRIVATE",
+          "-credential_file=/secrets/cloudsql/patential-963da9ab3326.json"
+        ]
+        securityContext:
+          runAsUser: 2 # non-root user.
+          allowPrivilegeEscalation: false
+        volumeMounts:
+        - name: cloudsql-instance-credentials
+          mountPath: /secrets/cloudsql
+          readOnly: true
+      volumes:
+      - name: cloudsql-instance-credentials
+        secret:
+          secretName: cloudsql-instance-credentials

@@ -4,10 +4,12 @@ The Patent service is the service responsible for managing **patents**.
 
 ## Tools and languages
 
-To work and run the service the following tools are needed:
+To work, run and deploy the service the following tools are needed:
 
-- Go
-- Bazel
+- Go: https://golang.org/dl/
+- Bazel: https://docs.bazel.build/versions/master/install-os-x.html
+- Skaffold: https://skaffold.dev/docs/install/
+- Kustomize: https://github.com/kubernetes-sigs/kustomize/blob/master/docs/INSTALL.md
 
 ### Build
 
@@ -25,8 +27,13 @@ The service can be run using Bazel with the following command:
 $ bazel run //golang/svc/patent/cmd --db-host=...
 ```
 
-You can invoke any gRPC using grpcurl (https://github.com/fullstorydev/grpcurl). As an example:
+
+### Deploy
+
+The service can be built & deployed using Skaffol. Use `skaffold run` inside the
+`k8s` directory to build and deploy the service once, similar to a CI/CD
+pipeline:
 
 ```shell
-grpcurl -d '{ "pagination": { "limit": 1 } }' -plaintext localhost:9000 patent.Service/ListPatents
+$ skaffold run
 ```
