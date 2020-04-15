@@ -42,6 +42,11 @@ spec:
           - "-grpc-port=9000"
         ports:
         - containerPort: 9000
+        resources:
+          requests:
+            cpu: 10m
+          limits:
+            cpu: 20m
         env:
         - name: DB_USER
           valueFrom:
