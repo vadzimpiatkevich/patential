@@ -35,7 +35,7 @@ spec:
         image: gcr.io/patential/patent
         args:
           - "-db-host=127.0.0.1"
-          - "-db-port=5437"
+          - "-db-port=5432"
           - "-db-user=$(DB_USER)"
           - "-db-password=$(DB_PASSWORD)"
           - "-db-name=patent"
@@ -62,7 +62,7 @@ spec:
         image: gcr.io/cloudsql-docker/gce-proxy:1.14
         command: [
           "/cloud_sql_proxy",
-          "-instances=psql-europe-west3=tcp:5432",
+          "-instances=patential:europe-west3:psql-europe-west3=tcp:5432",
           # If running on a VPC, the Cloud SQL proxy can connect via Private IP. See:
           # https://cloud.google.com/sql/docs/mysql/private-ip for more info.
           # "-ip_address_types=PRIVATE",
