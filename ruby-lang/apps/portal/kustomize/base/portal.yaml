@@ -1,53 +1,63 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: patent
+  name: portal
   labels:
-    app: patent
-    grpcWeb: grpcWeb
+    app: portal
 spec:
-  ports:
-  - name: grpc-port
-    port: 9000
+  type: LoadBalancer
   selector:
-    app: patent
+    app: portal
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      name: http-port
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: patent
+  name: portal
   labels:
-    app: patent
+    app: portal
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: patent
+      app: portal
   revisionHistoryLimit: 1
   template:
     metadata:
       labels:
-        app: patent
-        grpcWeb: grpcWeb
+        app: portal
     spec:
       containers:
-      - name: patent
-        image: gcr.io/patential/patent
-        args:
-          - "-db-host=127.0.0.1"
-          - "-db-port=5432"
-          - "-db-user=$(DB_USER)"
-          - "-db-password=$(DB_PASSWORD)"
-          - "-db-name=patent"
-          - "-grpc-port=9000"
+      - name: portal
+        image: gcr.io/patential/portal
+        command: ["rails"]
+        args: ["s"]
         ports:
-        - containerPort: 9000
+        - containerPort: 3000
         resources:
           requests:
-            cpu: 10m
+            cpu: 100m
+            memory: 256Mi
           limits:
-            cpu: 20m
+            cpu: 200m
+            memory: 512Mi
         env:
+        - name: RAILS_ENV
+          value: "production"
+        - name: RAILS_SERVE_STATIC_FILES
+          value: "true"
+        - name: "RAILS_LOG_TO_STDOUT"
+          value: "true"
+        - name: "PATENT_SVC_HOST"
+          value: "patent:9000"
+        - name: DB_HOST
+          value: "127.0.0.1"
+        - name: DB_PORT
+          value: "5432"
         - name: DB_USER
           valueFrom:
             secretKeyRef:
@@ -58,6 +68,8 @@ spec:
             secretKeyRef:
               name: psql-instance-credentials
               key: password
+        - name: DB_NAME
+          value: "portal"
       - name: cloudsql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.14
         command: [

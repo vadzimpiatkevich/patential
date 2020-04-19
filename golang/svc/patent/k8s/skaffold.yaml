@@ -10,4 +10,4 @@ build:
         - "--platforms=@io_bazel_rules_go//go/toolchain:linux_amd64"
 deploy:
   kustomize:
-    path: k8s/overlays/pro
+    path: overlays/pro
