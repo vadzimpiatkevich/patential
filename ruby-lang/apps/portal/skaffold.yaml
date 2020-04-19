@@ -1,0 +1,11 @@
+apiVersion: skaffold/v1beta15
+kind: Config
+build:
+  artifacts:
+  - image: gcr.io/patential/portal
+    docker:
+      buildArgs:
+        RAILS_ENV: production
+deploy:
+  kustomize:
+    path: kustomize/overlays/pro
